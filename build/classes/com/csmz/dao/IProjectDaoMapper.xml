@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csmz.dao.IProjectDao">
+	<resultMap id="resultMap" type="Project">
+		<result column="project_id" property="projectId"/>
+		<result column="project_name" property="projectName"/>
+		<result column="project_key" property="projectKey"/>
+		<result column="project_desc" property="desc"/>
+		<result column="build_date" property="buildDate"/>
+		<result column="project_leader" property="projectLeader"/>
+		
+	</resultMap>
+	<select id="selectAllProject" resultMap="resultMap">
+		select * from project
+	</select>
+
+	<insert id="insertProject"> 
+		insert into project(project_id,project_name,project_key,project_desc,build_date,project_leader)  values(#{projectId},#{projectName},#{projectKey},#{desc},#{buildDate},#{projectLeader})
+	</insert>
+	<delete id="deleteProjectById">
+		delete from project where project_id=#{xxx}
+	</delete>
+	<select id="selectProjectById" resultMap="resultMap">
+		select * from project where project_id=#{xxx}
+	</select>
+	<update id="updateProject" parameterType="Project">
+		UPDATE project
+		 <trim prefix="set" suffixOverrides=",">
+		  <if test="projectName!=null">project_name=#{projectName},</if>
+		  <if test="projectName!=null">project_key=#{projectName},</if>
+		  <if test="projectKey!=null">project_key=#{projectKey},</if>
+		  <if test="desc!=null">project_desc=#{desc},</if>
+		  <if test="buildDate!=null">build_date=#{buildDate},</if>
+		  <if test="projectLeader!=null">project_leader=#{projectLeader},</if>
+		 </trim>
+		 WHERE project_id=#{projectId}
+	</update>
+</mapper>

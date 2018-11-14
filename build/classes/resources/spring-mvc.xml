@@ -1,0 +1,36 @@
+<beans xmlns="http://www.springframework.org/schema/beans"  
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+		xmlns:context="http://www.springframework.org/schema/context"  
+		xmlns:aop="http://www.springframework.org/schema/aop"  
+		xmlns:tx="http://www.springframework.org/schema/tx"  
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+
+		xsi:schemaLocation="http://www.springframework.org/schema/beans  
+		http://www.springframework.org/schema/beans/spring-beans.xsd  
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context.xsd  
+		http://www.springframework.org/schema/aop  
+		http://www.springframework.org/schema/aop/spring-aop.xsd  
+		http://www.springframework.org/schema/tx  
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd ">  
+		<!-- spring就会去自动扫描base-package对应的路径或者该路径的子包下面的java文件，
+	如果扫描到文件中带有@Service,@Component,@Repository,@Controller等这些注解的类
+	，则把这些类注册为bean 	 -->
+		<context:component-scan base-package="com.csmz.controller"/>
+		<!--配置fastjson 将数据库取出来的数据转换成json格式 并可以用@responsebody注解在页面上显示 -->
+		<mvc:annotation-driven> 
+		  <mvc:message-converters register-defaults="true">
+		    <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">  
+		      <property name="supportedMediaTypes" value="application/json"/>
+		      <property name="features">
+		        <array>
+		          <value>WriteMapNullValue</value>
+		          <value>WriteDateUseDateFormat</value>
+		        </array>
+		      </property>
+		    </bean>
+		  </mvc:message-converters>  
+		</mvc:annotation-driven>
+
+</beans>
